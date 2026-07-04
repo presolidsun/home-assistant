@@ -2,21 +2,21 @@
   "config": {
     "step": {
       "user": {
-        "title": "PRESolidsun FVE Login",
-        "description": "Connect your PRESolidsun photovoltaic plant. You can find your credentials in your contract. If you don't have them, request them at [info@solidsun.cz](mailto:info@solidsun.cz).",
+        "title": "PREsolidsun FVE Login",
+        "description": "Connect your PREsolidsun photovoltaic plant. You can find your credentials in your contract. If you don't have them, request them at [info@solidsun.cz](mailto:info@solidsun.cz).",
         "data": {
           "case_number": "Case number",
           "password": "Password"
         },
         "data_description": {
           "case_number": "Enter the case number from your contract (e.g. OP-22-39020).",
-          "password": "The password assigned by PRESolidsun s.r.o."
+          "password": "The password assigned by PREsolidsun s.r.o."
         }
       }
     },
     "error": {
       "invalid_auth": "Invalid credentials. Check your case number and password.",
-      "cannot_connect": "Could not connect to PRESolidsun server. Please try again.",
+      "cannot_connect": "Could not connect to PREsolidsun server. Please try again.",
       "unknown": "Unexpected error. Please try again."
     },
     "abort": {

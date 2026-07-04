@@ -1,6 +1,6 @@
 {
   "domain": "presolidsun",
-  "name": "PRESolidsun FVE",
+  "name": "PREsolidsun FVE",
   "version": "1.0.4",
   "config_flow": true,
   "documentation": "https://github.com/presolidsun/home-assistant",

@@ -53,7 +53,7 @@ def _build_device_info(coordinator: SolidsunCoordinator, case_number: str) -> De
     return DeviceInfo(
         identifiers={(DOMAIN, case_number)},
         name=f"FVE - {case_number}",
-        manufacturer="PRESolidsun",
+        manufacturer="PREsolidsun",
         model="FVE",
         configuration_url="https://www.solidsun.cz",
     )

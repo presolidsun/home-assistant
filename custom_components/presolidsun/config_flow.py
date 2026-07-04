@@ -1,4 +1,4 @@
-"""Config flow for PRESolidsun integration."""
+"""Config flow for PREsolidsun integration."""
 from __future__ import annotations
 
 import logging

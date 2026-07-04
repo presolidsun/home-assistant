@@ -1,4 +1,4 @@
-"""DataUpdateCoordinator for PRESolidsun."""
+"""DataUpdateCoordinator for PREsolidsun."""
 from __future__ import annotations
 
 import logging
