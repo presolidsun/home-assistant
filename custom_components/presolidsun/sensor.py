@@ -9,7 +9,7 @@ from homeassistant.components.sensor import (
     SensorStateClass,
 )
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import UnitOfEnergy, EntityCategory
+from homeassistant.const import UnitOfEnergy, UnitOfPower, EntityCategory
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
@@ -36,10 +36,10 @@ async def async_setup_entry(
     coordinator: SolidsunCoordinator = hass.data[DOMAIN][entry.entry_id]
 
     entities = []
-    for group_key in SENSOR_GROUPS:
+    for group_key, group_meta in SENSOR_GROUPS.items():
         for sensor_key, meta in SENSOR_KEYS.items():
             entities.append(
-                SolidsunSensor(coordinator, entry, group_key, sensor_key, meta)
+                SolidsunSensor(coordinator, entry, group_key, group_meta, sensor_key, meta)
             )
 
     for info_key, meta in DEVICE_INFO_KEYS.items():
@@ -52,11 +52,16 @@ def _build_device_info(coordinator: SolidsunCoordinator, case_number: str) -> De
     """Shared DeviceInfo so all entities group under one device."""
     return DeviceInfo(
         identifiers={(DOMAIN, case_number)},
-        name=f"Solidsun FVE – {coordinator.client.client_name or case_number}",
+        name=f"FVE - {case_number}",
         manufacturer="Solidsun",
         model="FVE",
         configuration_url="https://servis.solidsun.cz",
     )
+
+
+def _short_op(case_number: str) -> str:
+    """Return the last segment of the OP number (e.g. OP-22-39017 -> 39017)."""
+    return case_number.split("-")[-1]
 
 
 class SolidsunSensor(CoordinatorEntity, SensorEntity):
@@ -69,6 +74,7 @@ class SolidsunSensor(CoordinatorEntity, SensorEntity):
         coordinator: SolidsunCoordinator,
         entry: ConfigEntry,
         group_key: str,
+        group_meta: dict,
         sensor_key: str,
         meta: dict,
     ) -> None:
@@ -78,14 +84,21 @@ class SolidsunSensor(CoordinatorEntity, SensorEntity):
         self._entry = entry
 
         case_number = entry.data[CONF_CASE_NUMBER]
-        group_label = SENSOR_GROUPS[group_key]
+        short_op = _short_op(case_number)
 
         self._attr_unique_id = f"{case_number}_{group_key}_{sensor_key}"
-        self._attr_name = f"{group_label} – {meta['name']}"
+        self.entity_id = f"sensor.solidsun_{short_op}_{group_meta['slug']}_{meta['slug']}"
+        self._attr_name = f"{group_meta['label']} – {meta['name']}"
         self._attr_icon = meta["icon"]
-        self._attr_native_unit_of_measurement = UnitOfEnergy.KILO_WATT_HOUR
-        self._attr_device_class = SensorDeviceClass.ENERGY
-        self._attr_state_class = SensorStateClass.TOTAL_INCREASING
+
+        if group_meta["instant"]:
+            self._attr_native_unit_of_measurement = UnitOfPower.KILO_WATT
+            self._attr_device_class = SensorDeviceClass.POWER
+            self._attr_state_class = SensorStateClass.MEASUREMENT
+        else:
+            self._attr_native_unit_of_measurement = UnitOfEnergy.KILO_WATT_HOUR
+            self._attr_device_class = SensorDeviceClass.ENERGY
+            self._attr_state_class = SensorStateClass.TOTAL_INCREASING
 
         self._attr_device_info = _build_device_info(coordinator, case_number)
 
@@ -116,6 +129,7 @@ class SolidsunDeviceSensor(CoordinatorEntity, SensorEntity):
         case_number = entry.data[CONF_CASE_NUMBER]
 
         self._attr_unique_id = f"{case_number}_device_{info_key}"
+        self.entity_id = f"sensor.solidsun_{_short_op(case_number)}_{info_key}"
         self._attr_name = meta["name"]
         self._attr_icon = meta["icon"]
         if meta.get("unit"):

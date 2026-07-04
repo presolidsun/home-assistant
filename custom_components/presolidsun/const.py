@@ -10,58 +10,49 @@ API_LOGIN = f"{API_BASE}/auth/client-login"
 API_DAILY_SUM = f"{API_BASE}/clients/devices/daily-sum"
 API_TOTAL_SUM = f"{API_BASE}/clients/devices/total-sum"
 API_ACTIVE = f"{API_BASE}/clients/devices/active"
+API_LAST_LOG = f"{API_BASE}/clients/devices/last-log"
 
-UPDATE_INTERVAL_MINUTES = 5
+UPDATE_INTERVAL_MINUTES = 2.5
 TOTAL_SUM_INTERVAL_HOURS = 6
 
+# Skupiny senzorů. "instant" = okamžitá hodnota (výkon kW), jinak kumulovaná energie (kWh).
 SENSOR_GROUPS = {
-    "today": "Dnešní den",
-    "yesterday": "Včerejší den",
-    "total": "Celkem",
+    "today": {"label": "Dnešní den", "slug": "dnes", "instant": False},
+    "yesterday": {"label": "Včerejší den", "slug": "vcera", "instant": False},
+    "total": {"label": "Celkem", "slug": "celkem", "instant": False},
+    "now": {"label": "Nyní", "slug": "nyni", "instant": True},
 }
 
 SENSOR_KEYS = {
     "battery_accumulation": {
         "name": "Akumulace baterie",
         "icon": "mdi:battery-charging",
-        "unit": "kWh",
-        "device_class": "energy",
-        "state_class": "total_increasing",
+        "slug": "baterie_akumulace",
     },
     "battery_production": {
         "name": "Výroba z baterie",
         "icon": "mdi:battery-arrow-up",
-        "unit": "kWh",
-        "device_class": "energy",
-        "state_class": "total_increasing",
+        "slug": "baterie_vyroba",
     },
     "distribution_delivery": {
         "name": "Odběr ze sítě",
         "icon": "mdi:transmission-tower-import",
-        "unit": "kWh",
-        "device_class": "energy",
-        "state_class": "total_increasing",
+        "slug": "distribuce_nakup",
     },
     "distribution_overflow": {
         "name": "Přetoky do sítě",
         "icon": "mdi:transmission-tower-export",
-        "unit": "kWh",
-        "device_class": "energy",
-        "state_class": "total_increasing",
+        "slug": "distribuce_pretok",
     },
     "object_consumption": {
         "name": "Spotřeba objektu",
         "icon": "mdi:home-lightning-bolt",
-        "unit": "kWh",
-        "device_class": "energy",
-        "state_class": "total_increasing",
+        "slug": "objekt_spotreba",
     },
     "sun_production": {
         "name": "Výroba FVE",
         "icon": "mdi:solar-panel",
-        "unit": "kWh",
-        "device_class": "energy",
-        "state_class": "total_increasing",
+        "slug": "slunce_vyroba",
     },
 }
 

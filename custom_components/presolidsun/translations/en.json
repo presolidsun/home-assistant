@@ -3,14 +3,14 @@
     "step": {
       "user": {
         "title": "Solidsun FVE Login",
-        "description": "Connect your Solidsun photovoltaic plant. You can find your credentials in your contract or get them from your administrator.",
+        "description": "Connect your Solidsun photovoltaic plant. You can find your credentials in your contract. If you don't have them, request them at [info@solidsun.cz](mailto:info@solidsun.cz).",
         "data": {
           "case_number": "Case number",
           "password": "Password"
         },
         "data_description": {
           "case_number": "Enter the case number from your contract (e.g. OP-22-39020).",
-          "password": "The password assigned by your administrator for servis.solidsun.cz."
+          "password": "The password assigned by PRESolidsun s.r.o."
         }
       }
     },

@@ -6,7 +6,7 @@ from datetime import date, timedelta
 
 import aiohttp
 
-from .const import API_ACTIVE, API_DAILY_SUM, API_LOGIN, API_TOTAL_SUM
+from .const import API_ACTIVE, API_DAILY_SUM, API_LAST_LOG, API_LOGIN, API_TOTAL_SUM
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -132,19 +132,44 @@ class SolidsunApiClient:
             "last_online_at": (data.get("last_online_at") or {}).get("iso"),
         }
 
+    async def async_get_last_log(self) -> dict:
+        """Fetch the latest device log (current values, scaled to kW)."""
+        try:
+            async with self._session.get(
+                API_LAST_LOG,
+                headers=self._headers(),
+                timeout=aiohttp.ClientTimeout(total=15),
+            ) as resp:
+                if resp.status == 401:
+                    await self.async_login()
+                    return await self.async_get_last_log()
+                if resp.status != 200:
+                    raise SolidsunConnectionError(f"last-log failed: {resp.status}")
+                payload = await resp.json()
+        except SolidsunAuthError:
+            raise
+        except aiohttp.ClientError as err:
+            raise SolidsunConnectionError(f"Connection error: {err}") from err
+
+        if isinstance(payload, dict) and "data" in payload:
+            return payload["data"]
+        return payload
+
     async def async_get_all_data(self) -> dict:
-        """Fetch today, yesterday, total and device data in one call."""
+        """Fetch today, yesterday, total, now and device data in one call."""
         today = date.today()
         yesterday = today - timedelta(days=1)
 
         today_data = await self.async_get_daily_sum(today)
         yesterday_data = await self.async_get_daily_sum(yesterday)
         total_data = await self.async_get_total_sum()
+        now_data = await self.async_get_last_log()
         device_data = await self.async_get_active()
 
         return {
             "today": today_data,
             "yesterday": yesterday_data,
             "total": total_data,
+            "now": now_data,
             "device": device_data,
         }
