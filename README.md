@@ -9,7 +9,7 @@ Vlastní integrace pro **Home Assistant**, která připojuje fotovoltaické elek
 
 ---
 
-## 📋 Obsah
+## Obsah
 
 - [Co integrace umí](#-co-integrace-umí)
 - [Požadavky](#-požadavky)
@@ -22,7 +22,7 @@ Vlastní integrace pro **Home Assistant**, která připojuje fotovoltaické elek
 
 ---
 
-## ⚡ Co integrace umí
+## Co integrace umí
 
 | Funkce | Popis |
 |--------|-------|
