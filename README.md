@@ -2,7 +2,7 @@
 
 Vlastní integrace pro **Home Assistant**, která připojuje fotovoltaické elektrárny provozované přes portál PRESolidsun a zobrazuje jejich data jako entity přímo v HA.
 
-[![GitLab](https://img.shields.io/badge/GitLab-PRESolidsunHA-orange?logo=gitlab)](https://gitlab.com/presolidsun/PRESolidsunHA)
+[![GitHub](https://img.shields.io/badge/GitHub-presolidsun%2Fhome--assistant-black?logo=github)](https://github.com/presolidsun/home-assistant)
 [![HACS](https://img.shields.io/badge/HACS-custom-blue?logo=home-assistant)](https://hacs.xyz)
 [![HA verze](https://img.shields.io/badge/Home%20Assistant-2024.1%2B-41bdf5?logo=home-assistant)](https://www.home-assistant.io)
 [![Licence](https://img.shields.io/badge/licence-MIT-green)](LICENSE)
@@ -47,7 +47,7 @@ Vlastní integrace pro **Home Assistant**, která připojuje fotovoltaické elek
 
 1. Otevřete **HACS** v postranním menu Home Assistantu
 2. Klikněte na ⋮ → **Vlastní repozitáře**
-3. Přidejte URL: `https://gitlab.com/presolidsun/PRESolidsunHA`  
+3. Přidejte URL: `https://github.com/presolidsun/home-assistant`
    Kategorie: **Integrace**
 4. Vyhledejte **PRESolidsun** a klikněte **Stáhnout**
 5. **Restartujte** Home Assistant
