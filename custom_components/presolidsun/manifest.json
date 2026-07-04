@@ -1,7 +1,7 @@
 {
   "domain": "presolidsun",
   "name": "Solidsun FVE",
-  "version": "1.1.0",
+  "version": "1.0.3",
   "config_flow": true,
   "documentation": "https://github.com/pixiocz/PRESolidsunHA",
   "issue_tracker": "https://github.com/pixiocz/PRESolidsunHA/issues",
