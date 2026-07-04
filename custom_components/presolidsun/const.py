@@ -17,8 +17,8 @@ TOTAL_SUM_INTERVAL_HOURS = 6
 
 # Skupiny senzorů. "instant" = okamžitá hodnota (výkon kW), jinak kumulovaná energie (kWh).
 SENSOR_GROUPS = {
-    "today": {"label": "Dnešní den", "slug": "dnes", "instant": False},
-    "yesterday": {"label": "Včerejší den", "slug": "vcera", "instant": False},
+    "today": {"label": "Dnes", "slug": "dnes", "instant": False},
+    "yesterday": {"label": "Včera", "slug": "vcera", "instant": False},
     "total": {"label": "Celkem", "slug": "celkem", "instant": False},
     "now": {"label": "Nyní", "slug": "nyni", "instant": True},
 }
@@ -57,13 +57,13 @@ SENSOR_KEYS = {
 }
 
 DEVICE_INFO_KEYS = {
-    "type_label": {"name": "Typ zařízení", "icon": "mdi:chip"},
-    "mac": {"name": "MAC adresa", "icon": "mdi:network"},
-    "local_ip": {"name": "Lokální IP", "icon": "mdi:ip-network"},
-    "serial_number_inverter": {"name": "Sériové číslo měniče", "icon": "mdi:barcode"},
-    "sw_version": {"name": "Verze softwaru", "icon": "mdi:information-outline"},
-    "version": {"name": "Verze firmwaru", "icon": "mdi:information-outline"},
-    "dod_online": {"name": "DoD online", "icon": "mdi:battery-70", "unit": "%"},
-    "dod_offline": {"name": "DoD offline", "icon": "mdi:battery-30", "unit": "%"},
-    "last_online_at": {"name": "Naposledy online", "icon": "mdi:clock-check-outline"},
+    "type_label": {"name": "Typ zařízení", "slug": "typ_zarizeni", "icon": "mdi:chip"},
+    "mac": {"name": "MAC adresa", "slug": "mac_adresa", "icon": "mdi:network"},
+    "local_ip": {"name": "Lokální IP", "slug": "lokalni_ip", "icon": "mdi:ip-network"},
+    "serial_number_inverter": {"name": "Sériové číslo měniče", "slug": "seriove_cislo", "icon": "mdi:barcode"},
+    "sw_version": {"name": "Verze softwaru", "slug": "verze_sw", "icon": "mdi:information-outline"},
+    "version": {"name": "Verze firmwaru", "slug": "verze_fw", "icon": "mdi:information-outline"},
+    "dod_online": {"name": "DoD online", "slug": "dod_online", "icon": "mdi:battery-70", "unit": "%"},
+    "dod_offline": {"name": "DoD offline", "slug": "dod_offline", "icon": "mdi:battery-30", "unit": "%"},
+    "last_online_at": {"name": "Naposledy online", "slug": "naposledy_online", "icon": "mdi:clock-check-outline"},
 }

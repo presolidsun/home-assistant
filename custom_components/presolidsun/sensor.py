@@ -53,9 +53,9 @@ def _build_device_info(coordinator: SolidsunCoordinator, case_number: str) -> De
     return DeviceInfo(
         identifiers={(DOMAIN, case_number)},
         name=f"FVE - {case_number}",
-        manufacturer="Solidsun",
+        manufacturer="PRESolidsun",
         model="FVE",
-        configuration_url="https://servis.solidsun.cz",
+        configuration_url="https://www.solidsun.cz",
     )
 
 
@@ -129,7 +129,7 @@ class SolidsunDeviceSensor(CoordinatorEntity, SensorEntity):
         case_number = entry.data[CONF_CASE_NUMBER]
 
         self._attr_unique_id = f"{case_number}_device_{info_key}"
-        self.entity_id = f"sensor.solidsun_{_short_op(case_number)}_{info_key}"
+        self.entity_id = f"sensor.solidsun_{_short_op(case_number)}_{meta['slug']}"
         self._attr_name = meta["name"]
         self._attr_icon = meta["icon"]
         if meta.get("unit"):
