@@ -1,4 +1,4 @@
-# ☀️ PRESolidsun – Home Assistant integrace
+# PRESolidsun – Home Assistant integrace
 
 Vlastní integrace pro **Home Assistant**, která připojuje fotovoltaické elektrárny provozované přes portál PRESolidsun a zobrazuje jejich data jako entity přímo v HA.
 
