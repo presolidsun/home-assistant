@@ -1,6 +1,6 @@
 # ☀️ PRESolidsun – Home Assistant integrace
 
-Vlastní integrace pro **Home Assistant**, která připojuje fotovoltaické elektrárny provozované přes portál [servis.solidsun.cz](https://servis.solidsun.cz) a zobrazuje jejich data jako entity přímo v HA.
+Vlastní integrace pro **Home Assistant**, která připojuje fotovoltaické elektrárny provozované přes portál PRESolidsun a zobrazuje jejich data jako entity přímo v HA.
 
 [![GitLab](https://img.shields.io/badge/GitLab-PRESolidsunHA-orange?logo=gitlab)](https://gitlab.com/presolidsun/PRESolidsunHA)
 [![HACS](https://img.shields.io/badge/HACS-custom-blue?logo=home-assistant)](https://hacs.xyz)
@@ -26,23 +26,22 @@ Vlastní integrace pro **Home Assistant**, která připojuje fotovoltaické elek
 
 | Funkce | Popis |
 |--------|-------|
-| 🔐 Bezpečné přihlášení | OAuth token přihlašování přes API Solidsun |
-| 📊 Energetické senzory | Dnešní, včerejší a celkové hodnoty výroby a spotřeby |
-| 🔍 Diagnostické senzory | Info o zařízení – IP, MAC, verze FW, DoD, poslední online |
-| 🏠 Více FVE | Každá elektrárna = samostatné zařízení v HA |
-| 🔄 Automatická obnova | Data se obnovují každých 30 minut |
+| Bezpečné přihlášení | OAuth token přihlašování přes API Solidsun |
+| Energetické senzory | Dnešní, včerejší a celkové hodnoty výroby a spotřeby |
+| Diagnostické senzory | Info o zařízení – IP, MAC, verze FW, DoD, poslední online |
+| Více FVE | Každá elektrárna = samostatné zařízení v HA |
 
 ---
 
-## 📦 Požadavky
+## Požadavky
 
 - Home Assistant **2024.1 nebo novější**
-- Účet na portálu [servis.solidsun.cz](https://servis.solidsun.cz)
+- FVE u společnosti PRESolidsun s aktivním zařízením pro monitoring FVE
 - Číslo OP a heslo (z vaší smlouvy nebo od správce)
 
 ---
 
-## 🚀 Instalace přes HACS
+## Instalace přes HACS
 
 > **Doporučená metoda** – snadná aktualizace jedním kliknutím.
 
@@ -55,17 +54,17 @@ Vlastní integrace pro **Home Assistant**, která připojuje fotovoltaické elek
 
 ---
 
-## 🛠️ Ruční instalace
+## Ruční instalace
 
 1. Stáhněte obsah složky `custom_components/presolidsun/` z tohoto repozitáře
 2. Zkopírujte ji do `config/custom_components/presolidsun/` na vašem HA serveru
 3. **Restartujte** Home Assistant
 
-> 💡 Pokud složka `custom_components` neexistuje, vytvořte ji vedle souboru `configuration.yaml`.
+> Pokud složka `custom_components` neexistuje, vytvořte ji vedle souboru `configuration.yaml`.
 
 ---
 
-## ⚙️ Konfigurace
+## Konfigurace
 
 Po restartu HA:
 
@@ -76,16 +75,16 @@ Po restartu HA:
 
 | Pole | Popis |
 |------|-------|
-| **Číslo OP** | Číslo vaší obchodní případu (např. `OP-22-39020`), uvedeno na smlouvě |
-| **Heslo** | Heslo přidělené správcem k portálu servis.solidsun.cz |
+| **Číslo OP** | Číslo vaší obchodní případu (např. `OP-22-39017`), uvedeno na smlouvě |
+| **Heslo** | Heslo přidělené správcem k portálu PRESolidsun |
 
 5. Klikněte **Odeslat** – integrace ověří přihlášení a vytvoří entity
 
 ---
 
-## 📡 Entity
+## Entity
 
-### 🔋 Energetické senzory
+### Energetické senzory
 
 Pro každé ze tří období (**dnes / včera / celkem**) jsou dostupné tyto hodnoty:
 
@@ -114,7 +113,7 @@ Pro každé ze tří období (**dnes / včera / celkem**) jsou dostupné tyto ho
 
 ---
 
-## 🏠 Více FVE
+## Více FVE
 
 Integrace podporuje **více fotovoltaických elektráren** najednou.  
 Každou přidáte jako samostatnou instanci:
@@ -132,7 +131,7 @@ Každá FVE se zobrazí jako **samostatné zařízení** se svými entitami.
 | Problém | Řešení |
 |---------|--------|
 | Entity se nezobrazují | Restartujte HA a zkontrolujte logy |
-| Neplatné přihlašovací údaje | Ověřte číslo OP a heslo na servis.solidsun.cz |
+| Neplatné přihlašovací údaje |
 | Chybí české texty v UI | Proveďte tvrdý refresh prohlížeče (Ctrl+F5) |
 | Zařízení se nepřipojí | Zkontrolujte připojení HA k internetu |
 

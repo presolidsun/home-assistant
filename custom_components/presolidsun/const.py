@@ -11,7 +11,7 @@ API_DAILY_SUM = f"{API_BASE}/clients/devices/daily-sum"
 API_TOTAL_SUM = f"{API_BASE}/clients/devices/total-sum"
 API_ACTIVE = f"{API_BASE}/clients/devices/active"
 
-UPDATE_INTERVAL_MINUTES = 30
+UPDATE_INTERVAL_MINUTES = 5
 TOTAL_SUM_INTERVAL_HOURS = 6
 
 SENSOR_GROUPS = {
