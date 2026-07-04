@@ -2,8 +2,8 @@
   "config": {
     "step": {
       "user": {
-        "title": "Přihlášení k Solidsun FVE",
-        "description": "Připojte svou fotovoltaickou elektrárnu Solidsun. Přihlašovací údaje najdete ve smlouvě. Pokud je nemáte, vyžádejte si je na [info@solidsun.cz](mailto:info@solidsun.cz).",
+        "title": "Přihlášení k PRESolidsun FVE",
+        "description": "Připojte svou fotovoltaickou elektrárnu PRESolidsun. Přihlašovací údaje najdete ve smlouvě. Pokud je nemáte, vyžádejte si je na [info@solidsun.cz](mailto:info@solidsun.cz).",
         "data": {
           "case_number": "Číslo OP",
           "password": "Heslo"
@@ -16,7 +16,7 @@
     },
     "error": {
       "invalid_auth": "Neplatné přihlašovací údaje. Zkontrolujte číslo OP a heslo.",
-      "cannot_connect": "Nepodařilo se připojit k serveru Solidsun. Zkuste to znovu.",
+      "cannot_connect": "Nepodařilo se připojit k serveru PRESolidsun. Zkuste to znovu.",
       "unknown": "Neočekávaná chyba. Zkuste to znovu."
     },
     "abort": {
