@@ -56,6 +56,37 @@ SENSOR_KEYS = {
     },
 }
 
+# Mapování pracovního režimu měniče (work_mode) na české popisky.
+WORK_MODE_LABELS = {
+    "1": "Čekání na síť (fázování)",
+    "2": "Připojeno k síti",
+    "3": "Záložní režim (odpojeno od sítě)",
+    "4": "Chyba",
+    "5": "Aktualizace / self-test",
+}
+
+# Doplňkové senzory dostupné pouze ve skupině "Nyní".
+NOW_EXTRA_KEYS = {
+    "battery_state": {
+        "name": "Stav baterie",
+        "slug": "baterie_stav",
+        "icon": "mdi:battery",
+        "kind": "battery",
+    },
+    "work_mode": {
+        "name": "Pracovní režim",
+        "slug": "pracovni_rezim",
+        "icon": "mdi:state-machine",
+        "kind": "work_mode",
+    },
+    "time": {
+        "name": "Platnost dat",
+        "slug": "platnost_dat",
+        "icon": "mdi:clock-outline",
+        "kind": "timestamp",
+    },
+}
+
 DEVICE_INFO_KEYS = {
     "type_label": {"name": "Typ zařízení", "slug": "typ_zarizeni", "icon": "mdi:chip"},
     "mac": {"name": "MAC adresa", "slug": "mac_adresa", "icon": "mdi:network"},

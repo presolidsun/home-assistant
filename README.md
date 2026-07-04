@@ -39,7 +39,7 @@ Vlastní integrace pro **Home Assistant**, která propojuje fotovoltaické elekt
 
 1. Otevřete **HACS** v postranním menu Home Assistantu
 2. Klikněte na ⋮ → **Vlastní repozitáře**
-3. Přidejte URL: `https://github.com/PREsolidsun/home-assistant` a kategorii **Integrace**
+3. Přidejte URL: `https://github.com/presolidsun/home-assistant` a kategorii **Integrace**
 4. Vyhledejte **PREsolidsun** a klikněte **Stáhnout**
 5. **Restartujte** Home Assistant
 
@@ -47,8 +47,8 @@ Vlastní integrace pro **Home Assistant**, která propojuje fotovoltaické elekt
 
 ## Ruční instalace
 
-1. Stáhněte obsah složky `custom_components/PREsolidsun/` z tohoto repozitáře
-2. Zkopírujte ji do `config/custom_components/PREsolidsun/` na vašem HA serveru
+1. Stáhněte obsah složky `custom_components/presolidsun/` z tohoto repozitáře
+2. Zkopírujte ji do `config/custom_components/presolidsun/` na vašem HA serveru
 3. **Restartujte** Home Assistant
 
 > Pokud složka `custom_components` neexistuje, vytvořte ji vedle souboru `configuration.yaml`.
@@ -67,7 +67,7 @@ Po restartu HA:
 | Pole | Popis |
 |------|-------|
 | **Číslo OP** | Číslo vaší smlouvy (např. `OP-22-39017`) |
-| **Heslo** | Heslo k vašemu účtu PREsolidsun |
+| **Heslo** | Heslo k vašemu účtu PREsolidsun (POZOR: heslo do klientské zóny muj.solidsun.cz pro toto přihlášení nefunguje!) |
 
 5. Klikněte **Odeslat** – integrace ověří přihlášení a automaticky vytvoří všechny entity
 
@@ -75,7 +75,7 @@ Po restartu HA:
 
 ## Entity
 
-Integrace vytváří entity pojmenované ve formátu `sensor.solidsun_XXXXX_skupina_hodnota`, kde `XXXXX` je číslo vaší OP.
+Integrace vytváří entity pojmenované ve formátu `sensor.solidsun_XXXXX_skupina_hodnota`, kde `XXXXX` je číslo vašeho obchodního případu.
 
 ### Energetické senzory (kWh)
 
@@ -86,9 +86,9 @@ Dostupné pro čtyři časová období:
 | **Dnes** | Hodnoty akumulované od začátku dnešního dne |
 | **Včera** | Hodnoty za celý předchozí den |
 | **Celkem** | Kumulativní součty od spuštění FVE |
-| **Nyní** | Okamžitý výkon v reálném čase (kW) |
+| **Nyní** | Okamžitý výkon v reálném čase (kW) + stav baterie a zařízení |
 
-V každé skupině jsou tyto hodnoty:
+V každé skupině (Dnes / Včera / Celkem / Nyní) jsou tyto energetické hodnoty:
 
 | Hodnota | Popis |
 |---------|-------|
@@ -98,6 +98,24 @@ V každé skupině jsou tyto hodnoty:
 | Výroba z baterie | Energie dodaná z baterie |
 | Odběr ze sítě | Spotřeba z distribuční sítě |
 | Přetoky do sítě | Přebytky dodané do distribuční sítě |
+
+Skupina **Nyní** navíc obsahuje tyto doplňkové senzory:
+
+| Entita | Jednotka | Popis |
+|--------|----------|-------|
+| `sensor.solidsun_XXXXX_nyni_baterie_stav` | % | Aktuální stav nabití baterie |
+| `sensor.solidsun_XXXXX_nyni_pracovni_rezim` | – | Pracovní režim měniče (česky) |
+| `sensor.solidsun_XXXXX_nyni_platnost_dat` | – | Časové razítko poslední aktualizace dat |
+
+**Hodnoty pracovního režimu:**
+
+| Hodnota | Popis |
+|---------|-------|
+| Čekání na síť (fázování) | Měnič se snaží přifázovat k síti |
+| Připojeno k síti | Výchozí stav – normální provoz |
+| Záložní režim (odpojeno od sítě) | FVE pracuje jako jediný zdroj (backup) |
+| Chyba | Chybový stav měniče |
+| Aktualizace / self-test | Nahrávání FW, self-check a ostatní stavy |
 
 ### Diagnostické senzory
 

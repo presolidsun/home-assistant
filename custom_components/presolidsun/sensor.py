@@ -9,18 +9,21 @@ from homeassistant.components.sensor import (
     SensorStateClass,
 )
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import UnitOfEnergy, UnitOfPower, EntityCategory
+from homeassistant.const import PERCENTAGE, UnitOfEnergy, UnitOfPower, EntityCategory
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
+from homeassistant.util import dt as dt_util
 
 from .const import (
     CONF_CASE_NUMBER,
     DEVICE_INFO_KEYS,
     DOMAIN,
+    NOW_EXTRA_KEYS,
     SENSOR_GROUPS,
     SENSOR_KEYS,
+    WORK_MODE_LABELS,
 )
 from .coordinator import SolidsunCoordinator
 
@@ -41,6 +44,9 @@ async def async_setup_entry(
             entities.append(
                 SolidsunSensor(coordinator, entry, group_key, group_meta, sensor_key, meta)
             )
+
+    for data_key, meta in NOW_EXTRA_KEYS.items():
+        entities.append(SolidsunNowExtraSensor(coordinator, entry, data_key, meta))
 
     for info_key, meta in DEVICE_INFO_KEYS.items():
         entities.append(SolidsunDeviceSensor(coordinator, entry, info_key, meta))
@@ -143,3 +149,60 @@ class SolidsunDeviceSensor(CoordinatorEntity, SensorEntity):
             return None
         device_data = self.coordinator.data.get("device", {})
         return device_data.get(self._info_key)
+
+
+class SolidsunNowExtraSensor(CoordinatorEntity, SensorEntity):
+    """Doplňkový senzor skupiny Nyní (stav baterie, režim, platnost dat)."""
+
+    _attr_has_entity_name = True
+
+    def __init__(
+        self,
+        coordinator: SolidsunCoordinator,
+        entry: ConfigEntry,
+        data_key: str,
+        meta: dict,
+    ) -> None:
+        super().__init__(coordinator)
+        self._data_key = data_key
+        self._kind = meta["kind"]
+        case_number = entry.data[CONF_CASE_NUMBER]
+        now_meta = SENSOR_GROUPS["now"]
+
+        self._attr_unique_id = f"{case_number}_now_{data_key}"
+        self.entity_id = f"sensor.solidsun_{_short_op(case_number)}_{now_meta['slug']}_{meta['slug']}"
+        self._attr_name = f"{now_meta['label']} – {meta['name']}"
+        self._attr_icon = meta["icon"]
+
+        if self._kind == "battery":
+            self._attr_native_unit_of_measurement = PERCENTAGE
+            self._attr_device_class = SensorDeviceClass.BATTERY
+            self._attr_state_class = SensorStateClass.MEASUREMENT
+        elif self._kind == "timestamp":
+            self._attr_device_class = SensorDeviceClass.TIMESTAMP
+        elif self._kind == "work_mode":
+            self._attr_device_class = SensorDeviceClass.ENUM
+            self._attr_options = list(WORK_MODE_LABELS.values())
+
+        self._attr_device_info = _build_device_info(coordinator, case_number)
+
+    @property
+    def native_value(self):
+        """Return the current value converted for the sensor kind."""
+        if self.coordinator.data is None:
+            return None
+        now_data = self.coordinator.data.get("now", {})
+        raw = now_data.get(self._data_key)
+        if raw is None:
+            return None
+
+        if self._kind == "battery":
+            try:
+                return float(raw)
+            except (TypeError, ValueError):
+                return None
+        if self._kind == "work_mode":
+            return WORK_MODE_LABELS.get(str(raw))
+        if self._kind == "timestamp":
+            return dt_util.parse_datetime(raw)
+        return raw
