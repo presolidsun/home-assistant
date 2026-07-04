@@ -1,0 +1,12 @@
+{
+  "domain": "presolidsun",
+  "name": "Solidsun FVE",
+  "version": "1.0.0",
+  "config_flow": true,
+  "documentation": "https://gitlab.com/presolidsun/PRESolidsunHA",
+  "issue_tracker": "https://gitlab.com/presolidsun/PRESolidsunHA/-/issues",
+  "requirements": [],
+  "dependencies": [],
+  "codeowners": [],
+  "iot_class": "cloud_polling"
+}

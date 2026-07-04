@@ -1,0 +1,26 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Přihlášení k Solidsun FVE",
+        "description": "Připojte svou fotovoltaickou elektrárnu Solidsun. Přihlašovací údaje najdete ve smlouvě nebo vám je poskytne správce.",
+        "data": {
+          "case_number": "Číslo OP",
+          "password": "Heslo"
+        },
+        "data_description": {
+          "case_number": "Zadejte číslo OP, které máte uvedené na smlouvě (např. OP-22-39020).",
+          "password": "Heslo, které vám přidělil správce k portálu servis.solidsun.cz."
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Neplatné přihlašovací údaje. Zkontrolujte číslo OP a heslo.",
+      "cannot_connect": "Nepodařilo se připojit k serveru Solidsun. Zkuste to znovu.",
+      "unknown": "Neočekávaná chyba. Zkuste to znovu."
+    },
+    "abort": {
+      "already_configured": "Tato FVE (číslo OP) je již nakonfigurována."
+    }
+  }
+}
